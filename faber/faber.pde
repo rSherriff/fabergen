@@ -3,17 +3,16 @@
 
 
 int max_colours = 13;
-int poet_num = 10;
+
 color[] bg_colours = new color[max_colours];
 color[] name_colours = new color[max_colours];
 color[] title_colours = new color[max_colours];
-String[] poets = new String[poet_num];
 
 int line_space = 100;
 int start_y = 100;
 
 PImage faber_logo;
-JSONArray bubbleData;
+JSONArray json_data;
 JSONObject json;
 
 void setup()
@@ -27,7 +26,7 @@ void setup()
    textFont(font);   
    
    json = loadJSONObject("https://raw.githubusercontent.com/dariusk/corpora/master/data/plants/cannabis.json");
-   bubbleData = json.getJSONArray("cannabis");
+   json_data = json.getJSONArray("cannabis");
       
    bg_colours[0] = #f54222; name_colours[0]= #925840;  title_colours[0]= #face63;
    bg_colours[1] = #fda13a; name_colours[1]= #f15d37;  title_colours[1]= #e4f1e8;
@@ -43,16 +42,7 @@ void setup()
    bg_colours[11] = #3b431a; name_colours[11]= #e4e3ce; title_colours[11]= #a27c33;
    bg_colours[12] = #dcd674; name_colours[12]= #2c5338; title_colours[12]= #817f08;
    
-   poets[0] = "Simon Armitage";
-   poets[1] = "Wendy Cope";
-   poets[2] = "Derek Walcott";
-   poets[3] = "Andrew Motion";
-   poets[4] = "Sylvia Plath";
-   poets[5] = "Jo Shapcott";
-   poets[6] = "Phillip Larkin";
-   poets[7] = "Ted Hughes";
-   poets[8] = "T.S. Eliot";
-   poets[9] = "Seamus Heaney";
+   author_setup();
 
    faber_logo = loadImage("logo.png");
    
@@ -73,32 +63,30 @@ void keyPressed()
 
 void generate()
 {
-for(int i = 0; i < 3; i++)
-{
-  int colour = int(random(0, max_colours));
-  int lines = 0;
-   fill(bg_colours[colour]);
-   rect(0 + (i * 400), 0, 0 + (i * 400) +400, 600);   
-   
-   fill(name_colours[colour]);
-   
-   int poet = int(random(0, poet_num));
-   String str = poets[poet];
-   String[] res = str.split(" ");
-
-    for (String j : res) 
-    {  
-     text(j, 10 + (i * 400), start_y + (line_space * lines++));
-    }
-   
-   fill(title_colours[colour]);
-   int title = int(random(0, bubbleData.size()));
-   str = bubbleData.getString(title);
-   res = str.split(" ");
-
-    for (String j : res) 
-    {  
-      text(j, 10 + (i * 400), start_y + (line_space * lines++));
-    }  
-}
+  for(int i = 0; i < 3; i++)
+  {
+      int colour = int(random(0, max_colours));
+      int lines = 0;
+      fill(bg_colours[colour]);
+      rect(0 + (i * 400), 0, 0 + (i * 400) +400, 600);   
+     
+      fill(name_colours[colour]);
+     
+      String str = generate_author();
+      String[] res = str.split(" ");
+  
+      for (String j : res) 
+      {  
+        text(j, 10 + (i * 400), start_y + (line_space * lines++));
+      }
+     
+      fill(title_colours[colour]);
+      str = generate_title();
+      res = str.split(" ");
+  
+      for (String j : res) 
+      {  
+        text(j, 10 + (i * 400), start_y + (line_space * lines++));
+      }  
+  }
 }
