@@ -76,7 +76,7 @@ void generate()
     String str = generate_author();
     String[] res = str.split(" ");
 
-    res = format_text(res);
+    get_best_font_size(res);
     for (String j : res) 
     {  
       text(j, margin_size + (i * book_width), start_y + (line_space * lines++));
@@ -97,16 +97,9 @@ void generate()
   }
 }
 
-void get_best_font_size(String[] text)
-{
-
-  
-}
-
 String[] format_text(String[] text)
 {
   ArrayList<String> temp_text = new ArrayList<String>();
-  int count = 0;
   boolean added_this_word = false;
   
   for(int i = 0; i < text.length; i++)
@@ -126,11 +119,23 @@ String[] format_text(String[] text)
     {
       temp_text.add(text[i]);
     }
-    count++;
   }
+
+  get_best_font_size(temp_text);
   
+  String[] return_array = new String[temp_text.size()];
+  for(int i = 0; i < temp_text.size(); i++)
+  {
+    return_array[i] = temp_text.get(i);
+  }
+    
+  return return_array;
+}
+
+void get_best_font_size(String[] text)
+{    
   int font_size = default_font_size;
-  for(String word : temp_text)
+  for(String word : text)
   {
     //println("Processing word: " + word + " Length: " + textWidth(word));
     while(textWidth(word) > (book_width - (margin_size * 2)))
@@ -139,12 +144,18 @@ String[] format_text(String[] text)
       //println("Font Size: " + font_size);
     }
   }
-  
-  String[] return_array = new String[temp_text.size()];
-  for(int i = 0; i < temp_text.size(); i++)
+}
+
+void get_best_font_size(ArrayList<String> text)
+{    
+  int font_size = default_font_size;
+  for(String word : text)
   {
-    return_array[i] = temp_text.get(i);
+    //println("Processing word: " + word + " Length: " + textWidth(word));
+    while(textWidth(word) > (book_width - (margin_size * 2)))
+    {
+      textSize(font_size--);
+      //println("Font Size: " + font_size);
+    }
   }
-    
-  return return_Array;
 }
