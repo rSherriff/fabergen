@@ -3,18 +3,21 @@
 
 
 int max_colours = 13;
-int poet_num = 10;
+
 color[] bg_colours = new color[max_colours];
 color[] name_colours = new color[max_colours];
 color[] title_colours = new color[max_colours];
-String[] poets = new String[poet_num];
 
 int line_space = 100;
 int start_y = 100;
 
 PImage faber_logo;
-JSONArray bubbleData;
+JSONArray json_data;
 JSONObject json;
+
+int book_width = 400;
+int default_font_size = 100;
+int margin_size = 10;
 
 void setup()
 {
@@ -22,12 +25,9 @@ void setup()
    size(1200, 600);
    
    PFont font;
-   font = createFont("times.ttf", 100);
+   font = createFont("times.ttf", default_font_size);
    background(0);
    textFont(font);   
-   
-   json = loadJSONObject("https://raw.githubusercontent.com/dariusk/corpora/master/data/plants/cannabis.json");
-   bubbleData = json.getJSONArray("cannabis");
       
    bg_colours[0] = #f54222; name_colours[0]= #925840;  title_colours[0]= #face63;
    bg_colours[1] = #fda13a; name_colours[1]= #f15d37;  title_colours[1]= #e4f1e8;
@@ -43,16 +43,7 @@ void setup()
    bg_colours[11] = #3b431a; name_colours[11]= #e4e3ce; title_colours[11]= #a27c33;
    bg_colours[12] = #dcd674; name_colours[12]= #2c5338; title_colours[12]= #817f08;
    
-   poets[0] = "Simon Armitage";
-   poets[1] = "Wendy Cope";
-   poets[2] = "Derek Walcott";
-   poets[3] = "Andrew Motion";
-   poets[4] = "Sylvia Plath";
-   poets[5] = "Jo Shapcott";
-   poets[6] = "Phillip Larkin";
-   poets[7] = "Ted Hughes";
-   poets[8] = "T.S. Eliot";
-   poets[9] = "Seamus Heaney";
+   author_setup();
 
    faber_logo = loadImage("logo.png");
    
@@ -73,32 +64,87 @@ void keyPressed()
 
 void generate()
 {
-for(int i = 0; i < 3; i++)
-{
-  int colour = int(random(0, max_colours));
-  int lines = 0;
-   fill(bg_colours[colour]);
-   rect(0 + (i * 400), 0, 0 + (i * 400) +400, 600);   
+  for(int i = 0; i < 3; i++)
+  {
+    int colour = int(random(0, max_colours));
+    int lines = 0;
+    fill(bg_colours[colour]);
+    rect(0 + (i * book_width), 0, 0 + (i * book_width) + book_width, 600);   
    
-   fill(name_colours[colour]);
+    fill(name_colours[colour]);
    
-   int poet = int(random(0, poet_num));
-   String str = poets[poet];
-   String[] res = str.split(" ");
+    String str = generate_author();
+    String[] res = str.split(" ");
 
+    res = format_text(res);
     for (String j : res) 
     {  
-     text(j, 10 + (i * 400), start_y + (line_space * lines++));
+      text(j, margin_size + (i * book_width), start_y + (line_space * lines++));
     }
+    textSize(default_font_size);
    
-   fill(title_colours[colour]);
-   int title = int(random(0, bubbleData.size()));
-   str = bubbleData.getString(title);
-   res = str.split(" ");
+    fill(title_colours[colour]);
+    
+    str = generate_title();
+    res = str.split(" ");
 
+    res = format_text(res);
     for (String j : res) 
     {  
-      text(j, 10 + (i * 400), start_y + (line_space * lines++));
-    }  
+      text(j, margin_size + (i * book_width), start_y + (line_space * lines++));
+    }
+     textSize(default_font_size); 
+  }
 }
+
+void get_best_font_size(String[] text)
+{
+
+  
+}
+
+String[] format_text(String[] text)
+{
+  ArrayList<String> temp_text = new ArrayList<String>();
+  int count = 0;
+  boolean added_this_word = false;
+  
+  for(int i = 0; i < text.length; i++)
+  {
+    if(added_this_word)
+    {
+      added_this_word = false;
+      continue;
+    }
+    //If the length of a two words in a row is less than the width of the book and a quater, put them on the same line
+    if(i < text.length - 1 && textWidth(text[i]) + textWidth(text[i+1]) < book_width * 1.25)
+    {
+      temp_text.add(text[i] + " " + text[i+1]);
+      added_this_word = true;
+    }
+    else
+    {
+      temp_text.add(text[i]);
+    }
+    count++;
+  }
+  
+  int font_size = default_font_size;
+  for(String word : temp_text)
+  {
+    //println("Processing word: " + word + " Length: " + textWidth(word));
+    while(textWidth(word) > (book_width - (margin_size * 2)))
+    {
+      textSize(font_size--);
+      //println("Font Size: " + font_size);
+    }
+  }
+  
+  String[] return_array = new String[temp_text.size()];
+  for(int i = 0; i < temp_text.size(); i++)
+  {
+    return_array[i] = temp_text.get(i);
+  }
+    
+  return return_Array;
 }
