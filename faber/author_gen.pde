@@ -20,7 +20,7 @@ void author_setup()
 
 String generate_author()
 {
-  float generate_thresholds = 100 / num_title_generators;
+  float generate_thresholds = 100 / num_author_generators;
   float author_chance = random(0,100);
   
   if(author_chance < generate_thresholds)
