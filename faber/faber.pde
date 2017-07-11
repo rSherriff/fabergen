@@ -8,8 +8,9 @@ color[] bg_colours = new color[max_colours];
 color[] name_colours = new color[max_colours];
 color[] title_colours = new color[max_colours];
 
-int line_space = 100;
-int start_y = 100;
+int default_line_space = 100;
+int line_space = default_line_space;
+int start_y = 0;
 
 PImage faber_logo;
 JSONArray json_data;
@@ -68,12 +69,25 @@ void keyPressed()
     generate();
        save("output.png");
   }
+  if(key == TAB)
+  {
+    println("Generating sample...");
+    String words = "";
+    for(int i = 0; i < 50; i++)
+    {
+      words += generate_passage_name() + ',';
+    }
+    String[] list = split(words, ',');
+    saveStrings("titles.txt", list);
+    println("Finished sample.");
+  }
 }
 
 void generate()
 {
   for(int i = 0; i < num_books; i++)
   {
+    int current_y = start_y;
     int colour = int(random(0, max_colours));
     int lines = 0;
     fill(bg_colours[colour]);
@@ -87,9 +101,11 @@ void generate()
     get_best_font_size(res);
     for (String j : res) 
     {  
-      text(j, margin_size + (i * book_width), start_y + (line_space * lines++));
+      current_y += line_space;
+      text(j, margin_size + (i * book_width), current_y);
     }
     textSize(default_font_size);
+    line_space = default_line_space;
    
     fill(title_colours[colour]);
     
@@ -97,11 +113,16 @@ void generate()
     res = str.split(" ");
 
     res = format_text(res);
-    for (String j : res) 
+    current_y += default_line_space;
+    text(res[0], margin_size + (i * book_width), current_y);
+    for (int j = 1; j < res.length; j++) 
     {  
-      text(j, margin_size + (i * book_width), start_y + (line_space * lines++));
+       current_y += line_space;
+      text(res[j], margin_size + (i * book_width), current_y);
     }
-     textSize(default_font_size); 
+    
+    textSize(default_font_size); 
+    line_space = default_line_space;
   }
 }
 
@@ -110,22 +131,32 @@ String[] format_text(String[] text)
   ArrayList<String> temp_text = new ArrayList<String>();
   boolean added_this_word = false;
   
-  for(int i = 0; i < text.length; i++)
+  if(text.length >=3)
   {
-    if(added_this_word)
+    for(int i = 0; i < text.length; i++)
     {
-      added_this_word = false;
-      continue;
+      if(added_this_word)
+      {
+        added_this_word = false;
+        continue;
+      }
+      //If the length of a two words in a row is less than the width of the book and a quater, put them on the same line
+      if(i < text.length - 1 && textWidth(text[i]) + textWidth(text[i+1]) < book_width * 1.25)
+      {
+        temp_text.add(upper_case_first_character(text[i]) + " " + upper_case_first_character(text[i+1]));
+        added_this_word = true;
+      }
+      else
+      {
+        temp_text.add(upper_case_first_character(text[i]));
+      }
     }
-    //If the length of a two words in a row is less than the width of the book and a quater, put them on the same line
-    if(i < text.length - 1 && textWidth(text[i]) + textWidth(text[i+1]) < book_width * 1.25)
+  }
+  else
+  {
+    for(int i = 0; i < text.length; i++)
     {
-      temp_text.add(text[i] + " " + text[i+1]);
-      added_this_word = true;
-    }
-    else
-    {
-      temp_text.add(text[i]);
+       temp_text.add(upper_case_first_character(text[i]));
     }
   }
 
@@ -149,6 +180,7 @@ void get_best_font_size(String[] text)
     while(textWidth(word) > (book_width - (margin_size * 2)))
     {
       textSize(font_size--);
+      line_space--;
       //println("Font Size: " + font_size);
     }
   }
@@ -163,7 +195,20 @@ void get_best_font_size(ArrayList<String> text)
     while(textWidth(word) > (book_width - (margin_size * 2)))
     {
       textSize(font_size--);
+      line_space--;
       //println("Font Size: " + font_size);
     }
+  }
+}
+
+String upper_case_first_character(String string)
+{
+  if(string.length() > 1)
+  {
+    return string.substring(0,1).toUpperCase() + string.substring(1);
+  }
+  else
+  {
+    return string.toUpperCase();
   }
 }

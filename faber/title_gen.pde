@@ -1,6 +1,6 @@
 
 
-int num_title_generators = 2;
+int num_title_generators = 6;
 String generate_title()
 {
   float generate_thresholds = 100 / num_title_generators;
@@ -16,7 +16,19 @@ String generate_title()
   }
   if(title_chance < (generate_thresholds * 3))
   {
-    return generate_hebrew_god_title();
+    //return generate_hebrew_god_title();
+  }
+  if(title_chance < (generate_thresholds * 4))
+  {
+    //return generate_crayola_title();
+  }
+  if(title_chance < (generate_thresholds * 5))
+  {
+    //return generate_apple_name_title();
+  }
+  if(title_chance < (generate_thresholds * 6))
+  {
+    return generate_passage_name();
   }
   
   return "";
@@ -49,4 +61,44 @@ String generate_hebrew_god_title()
   
   JSONObject name = json_data.getJSONObject(title);
   return name.getString("meaning");
+}
+
+String generate_crayola_title()
+{
+  json = loadJSONObject("https://raw.githubusercontent.com/dariusk/corpora/master/data/colors/crayola.json");
+  json_data = json.getJSONArray("colors");
+  
+  int title = int(random(0, json_data.size()));
+  
+  JSONObject name = json_data.getJSONObject(title);
+  return name.getString("color"); 
+}
+
+String generate_apple_name_title()
+{
+  json = loadJSONObject("https://raw.githubusercontent.com/dariusk/corpora/master/data/foods/apple_cultivars.json");
+  json_data = json.getJSONArray("cultivars");
+  
+  int title = int(random(0, json_data.size()));
+  return json_data.getString(title);
+}
+
+String generate_passage_name()
+{
+  json = loadJSONObject("https://raw.githubusercontent.com/dariusk/corpora/master/data/architecture/passages.json");
+  json_data = json.getJSONArray("passages");
+  
+  int passage_index = int(random(0, json_data.size()));
+  String passage_string = json_data.getString(passage_index);
+  passage_string += " to ";
+  
+  json = loadJSONObject("https://raw.githubusercontent.com/dariusk/corpora/master/data/art/isms.json");
+  json_data = json.getJSONArray("isms");
+  
+  int ism_index = int(random(0, json_data.size()));
+  
+  passage_string += json_data.getString(passage_index);
+  
+  return passage_string;
+  
 }
