@@ -16,13 +16,18 @@ JSONArray json_data;
 JSONObject json;
 
 int book_width = 400;
+int book_height = 600;
+
 int default_font_size = 100;
 int margin_size = 10;
+int num_books = 1;
 
 void setup()
 {
    colorMode(HSB);
-   size(1200, 600);
+   
+    surface.setResizable(true);
+    surface.setSize(book_width * num_books, book_height);
    
    PFont font;
    font = createFont("times.ttf", default_font_size);
@@ -48,6 +53,8 @@ void setup()
    faber_logo = loadImage("logo.png");
    
    generate();
+   
+
 }
 
 void draw()
@@ -59,17 +66,18 @@ void keyPressed()
   if (key == 10)
   { 
     generate();
+       save("output.png");
   }
 }
 
 void generate()
 {
-  for(int i = 0; i < 3; i++)
+  for(int i = 0; i < num_books; i++)
   {
     int colour = int(random(0, max_colours));
     int lines = 0;
     fill(bg_colours[colour]);
-    rect(0 + (i * book_width), 0, 0 + (i * book_width) + book_width, 600);   
+    rect(0 + (i * book_width), 0, 0 + (i * book_width) + book_width, book_height);   
    
     fill(name_colours[colour]);
    
