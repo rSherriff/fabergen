@@ -89,7 +89,6 @@ void generate()
   {
     int current_y = start_y;
     int colour = int(random(0, max_colours));
-    int lines = 0;
     fill(bg_colours[colour]);
     rect(0 + (i * book_width), 0, 0 + (i * book_width) + book_width, book_height);   
    
@@ -113,7 +112,7 @@ void generate()
     res = str.split(" ");
 
     res = format_text(res);
-    current_y += default_line_space;
+    current_y += 15 + textAscent();
     text(res[0], margin_size + (i * book_width), current_y);
     for (int j = 1; j < res.length; j++) 
     {  
@@ -203,9 +202,13 @@ void get_best_font_size(ArrayList<String> text)
 
 String upper_case_first_character(String string)
 {
-  if(string.length() > 1)
+  if(string.length() > 2)
   {
     return string.substring(0,1).toUpperCase() + string.substring(1);
+  }
+  else if(string.length() ==2)
+  {
+    return string;
   }
   else
   {
