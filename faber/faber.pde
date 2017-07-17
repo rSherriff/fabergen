@@ -202,13 +202,13 @@ void get_best_font_size(ArrayList<String> text)
 
 String upper_case_first_character(String string)
 {
-  if(string.length() > 2)
-  {
-    return string.substring(0,1).toUpperCase() + string.substring(1);
-  }
-  else if(string.length() ==2)
+  if(string.length() == 2 || string.equals("and") || string.equals("other"))
   {
     return string;
+  }
+  else if(string.length() > 2)
+  {
+    return string.substring(0,1).toUpperCase() + string.substring(1);
   }
   else
   {

@@ -40,6 +40,8 @@ void author_setup()
    poets.add("W.H. Auden");
    poets.add("Alfred Brendel");
    poets.add("Don Paterson");
+   poets.add("James Joyce");
+   
    //poets.add("");
    
    poet_num = poets.size();

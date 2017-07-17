@@ -1,37 +1,53 @@
 
 
 int num_title_generators = 6;
+int num_subtitle_generators = 2;
 String generate_title()
 {
   float generate_thresholds = 100 / num_title_generators;
   float title_chance = random(0,100);
+  String title = "";
   
   if(title_chance < generate_thresholds)
   {
-    return generate_cannabis_title();
+    title =  generate_cannabis_title();
   }
-  if(title_chance < (generate_thresholds * 2))
+  else if(title_chance < (generate_thresholds * 2))
   {
-    return generate_titan_name();
+    title =  generate_titan_name();
   }
-  if(title_chance < (generate_thresholds * 3))
+  else if(title_chance < (generate_thresholds * 3))
   {
-    return generate_hebrew_god_title();
+    title =  generate_hebrew_god_title();
   }
-  if(title_chance < (generate_thresholds * 4))
+  else if(title_chance < (generate_thresholds * 4))
   {
-    return generate_crayola_title();
+    title =  generate_crayola_title();
   }
-  if(title_chance < (generate_thresholds * 5))
+  else if(title_chance < (generate_thresholds * 5))
   {
-    return generate_apple_name_title();
+    title =  generate_apple_name_title();
   }
-  if(title_chance < (generate_thresholds * 6))
+  else if(title_chance < (generate_thresholds * 6))
   {
-    return generate_passage_name();
+    title =  generate_passage_name();
   }
   
-  return "";
+  float subtitle_thresholds = 100 / num_subtitle_generators;
+  float subtitle_chance = random(0,100);
+  if(subtitle_chance < subtitle_thresholds)
+  {
+    String[] res = title.split(" ");
+    if(res.length == 1)
+    {
+      title += " and other Poems";
+    }
+  }
+  else if(subtitle_chance < subtitle_thresholds * 2)
+  {
+  }
+  
+  return title;
 }
 
 String generate_cannabis_title()
