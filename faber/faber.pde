@@ -8,7 +8,7 @@ color[] bg_colours = new color[max_colours];
 color[] name_colours = new color[max_colours];
 color[] title_colours = new color[max_colours];
 
-int default_line_space = 100;
+int default_line_space = 50;
 int line_space = default_line_space;
 int start_y = 0;
 
@@ -16,11 +16,11 @@ PImage faber_logo;
 JSONArray json_data;
 JSONObject json;
 
-int book_width = 400;
-int book_height = 600;
+int book_width = 200;
+int book_height = 300;
 
-int default_font_size = 100;
-int margin_size = 10;
+int default_font_size = 50;
+int margin_size = 5;
 int num_books = 1;
 
 void setup()
@@ -54,12 +54,17 @@ void setup()
    faber_logo = loadImage("logo.png");
    
    generate();
-   
-
 }
 
 void draw()
 {
+  //One run
+  if(true)
+  {
+      generate();
+      save("output/output.png");
+      exit();
+  }
 }
 
 void keyPressed() 
@@ -67,7 +72,7 @@ void keyPressed()
   if (key == 10)
   { 
     generate();
-       save("output.png");
+      save("output/output.png");
   }
   if(key == TAB)
   {
@@ -87,6 +92,8 @@ void generate()
 {
   for(int i = 0; i < num_books; i++)
   {
+    println("Generating new image...");
+      
     int current_y = start_y;
     int colour = int(random(0, max_colours));
     fill(bg_colours[colour]);
