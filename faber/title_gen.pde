@@ -8,23 +8,23 @@ String generate_title()
   
   if(title_chance < generate_thresholds)
   {
-    //return generate_cannabis_title();
+    return generate_cannabis_title();
   }
   if(title_chance < (generate_thresholds * 2))
   {
-    //return generate_titan_name();
+    return generate_titan_name();
   }
   if(title_chance < (generate_thresholds * 3))
   {
-    //return generate_hebrew_god_title();
+    return generate_hebrew_god_title();
   }
   if(title_chance < (generate_thresholds * 4))
   {
-    //return generate_crayola_title();
+    return generate_crayola_title();
   }
   if(title_chance < (generate_thresholds * 5))
   {
-    //return generate_apple_name_title();
+    return generate_apple_name_title();
   }
   if(title_chance < (generate_thresholds * 6))
   {

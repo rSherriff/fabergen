@@ -1,21 +1,48 @@
 
-int poet_num = 10;
-String[] poets = new String[poet_num];
+int poet_num = 0;
+ArrayList<String> poets = new ArrayList<String>();
 
 int num_author_generators = 1;
 
 void author_setup()
 {
-   poets[0] = "Simon Armitage";
-   poets[1] = "Wendy Cope";
-   poets[2] = "Derek Walcott";
-   poets[3] = "Andrew Motion";
-   poets[4] = "Sylvia Plath";
-   poets[5] = "Jo Shapcott";
-   poets[6] = "Phillip Larkin";
-   poets[7] = "Ted Hughes";
-   poets[8] = "T.S. Eliot";
-   poets[9] = "Seamus Heaney";
+   poets.add("Simon Armitage");
+   poets.add("Wendy Cope");
+   poets.add("Derek Walcott");
+   poets.add("Andrew Motion");
+   poets.add("Sylvia Plath");
+   poets.add("Jo Shapcott");
+   poets.add("Phillip Larkin");
+   poets.add("Ted Hughes");
+   poets.add("T.S. Eliot");
+   poets.add("Seamus Heaney");
+   poets.add("Wilfred Owen");
+   poets.add("Siegfried Sasson");
+   poets.add("Robert Graves");
+   poets.add("Dylan Thomas");
+   poets.add("David Harsent");
+   poets.add("Kingsley Amis");
+   poets.add("Harold Pinter");
+   poets.add("Hugo Williams");
+   poets.add("A.E. Housman");
+   poets.add("William Morris");
+   poets.add("John Ruskin");
+   poets.add("J.R.R. Tolkien");
+   poets.add("Edith Sitwell");
+   poets.add("Wilfred Owen");
+   poets.add("Ezra Pound");
+   poets.add("Jo Shapcott");
+   poets.add("Thom Gunn");
+   poets.add("August Kleinzahler");
+   poets.add("Robert Lowell");
+   poets.add("Hugo Williams");
+   poets.add("Douglas Dunn");
+   poets.add("W.H. Auden");
+   poets.add("Alfred Brendel");
+   poets.add("Don Paterson");
+   //poets.add("");
+   
+   poet_num = poets.size();
 }
 
 String generate_author()
@@ -26,7 +53,7 @@ String generate_author()
   if(author_chance < generate_thresholds)
   {
       int poet = int(random(0, poet_num));
-      return poets[poet];
+      return poets.get(poet);
   }
   else if(author_chance < (generate_thresholds * 2))
   {
