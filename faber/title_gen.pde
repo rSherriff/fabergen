@@ -10,6 +10,7 @@ String generate_title()
   
   if(title_chance < generate_thresholds)
   {
+    println("Cannabis");
     title =  generate_cannabis_title();
   }
   else if(title_chance < (generate_thresholds * 2))
@@ -28,7 +29,7 @@ String generate_title()
   {
     title =  generate_apple_name_title();
   }
-  else if(title_chance < (generate_thresholds * 6))
+  else if(title_chance < 100)
   {
     title =  generate_passage_name();
   }
