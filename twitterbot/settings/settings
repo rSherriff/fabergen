@@ -1,0 +1,41 @@
+# Replace where appropriate with your own settings.
+
+[Twitter]
+api_key = QqJbqjkEfFFFwSAuWzoNIiGCp
+secret_key = dNcH0G9AFS3ZsbHK35I15vupJpblkBDVFsS0SUiDscFzPrFliV
+token = 887018316509982721-ZQ6L7CUYyAR7KnLHo1VHeMbfe1wR75o
+secret_token = Vyh4mSgWlGdj8REGrzizDlBp00Zz0MFEIYdXLYqQSUuGC
+
+[App]
+image_folder = C:\Users\richard.sherriff\Documents\fabergen\faber\output
+execution_chance = 100
+allow_repeat_after = 1
+log_file = C:/Users/richard.sherriff/Documents/fabergen/twitterbot/mylogs/log.txt
+bot_account = @faber_generator
+master_account = @faber_generator
+dont_tweet_file = C:\Users\richard.sherriff\Documents\fabergen\twitterbot\mylogs\banned
+
+[Orders]
+#caps agnostic
+ban_command = @faber_generator don't
+request_command = dear @faber_generator
+time_tolerance = 5
+
+
+[Texts]
+# Respect indentation: it is TWO spaces
+# tweet_post_number is either True or False, nothing else
+# tweet this text doesn't requiere "" or '', just write the text
+tweet_post_number = False
+tweet_this_text =  
+
+request_answers = answer1
+  answer2
+  answer3
+  ...
+  answerN
+request_to_third_answers = answer1
+  answer2
+  ...
+  answerN
+
