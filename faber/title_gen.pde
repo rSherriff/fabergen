@@ -1,31 +1,37 @@
 
 
-int num_title_generators = 6;
+
 int num_subtitle_generators = 2;
+int cannabis_chance = 25;
+int titan_chance = 10;
+int god_chance = 10;
+int crayola_chance = 25;
+int apple_chance = 20;
+int passage_chance = 10;
+
 String generate_title()
 {
-  float generate_thresholds = 100 / num_title_generators;
   float title_chance = random(0,100);
   String title = "";
   
-  if(title_chance < generate_thresholds)
+  if(title_chance < cannabis_chance)
   {
     println("Cannabis");
     title =  generate_cannabis_title();
   }
-  else if(title_chance < (generate_thresholds * 2))
+  else if(title_chance < cannabis_chance + titan_chance)
   {
     title =  generate_titan_name();
   }
-  else if(title_chance < (generate_thresholds * 3))
+  else if(title_chance < cannabis_chance + titan_chance + god_chance)
   {
     title =  generate_hebrew_god_title();
   }
-  else if(title_chance < (generate_thresholds * 4))
+  else if(title_chance < cannabis_chance + titan_chance + god_chance  + crayola_chance)
   {
     title =  generate_crayola_title();
   }
-  else if(title_chance < (generate_thresholds * 5))
+  else if(title_chance < cannabis_chance + titan_chance + god_chance + crayola_chance + apple_chance)
   {
     title =  generate_apple_name_title();
   }
@@ -36,7 +42,7 @@ String generate_title()
   
   float subtitle_thresholds = 100 / num_subtitle_generators;
   float subtitle_chance = random(0,100);
-  if(subtitle_chance < subtitle_thresholds)
+  if(subtitle_chance < 25)
   {
     String[] res = title.split(" ");
     if(res.length == 1)
