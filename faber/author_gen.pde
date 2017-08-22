@@ -41,6 +41,7 @@ void author_setup()
    poets.add("Alfred Brendel");
    poets.add("Don Paterson");
    poets.add("James Joyce");
+   poets.add("Carol Ann Duffy");
    
    //poets.add("");
    

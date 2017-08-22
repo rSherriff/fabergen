@@ -99,6 +99,15 @@ void draw()
       save("output/output.png");
       exit();
   }
+  if(false)
+  {
+    for(int i = 0; i < 1000; i++)
+    {
+      generate();
+      save("output/cover" + i + ".png");
+    }
+    exit();
+  }
 }
 
 void keyPressed() 

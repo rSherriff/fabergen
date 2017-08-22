@@ -4,10 +4,11 @@
 int num_subtitle_generators = 2;
 int cannabis_chance = 25;
 int titan_chance = 10;
-int god_chance = 10;
-int crayola_chance = 25;
-int apple_chance = 20;
-int passage_chance = 10;
+int god_chance = 5;
+int crayola_chance = 20;
+int apple_chance = 25;
+int passage_chance = 5;
+int tube_chance = 15;
 
 String generate_title()
 {
@@ -35,9 +36,13 @@ String generate_title()
   {
     title =  generate_apple_name_title();
   }
-  else if(title_chance < 100)
+  else if(title_chance <  cannabis_chance + titan_chance + god_chance  + crayola_chance+apple_chance)
   {
     title =  generate_passage_name();
+  }
+  else if(title_chance < cannabis_chance + titan_chance + god_chance  + crayola_chance+apple_chance + tube_chance)
+  {
+    title = generate_tube_title();
   }
   
   float subtitle_thresholds = 100 / num_subtitle_generators;
@@ -124,4 +129,15 @@ String generate_passage_name()
   
   return passage_string;
   
+}
+
+String generate_tube_title()
+{
+  json = loadJSONObject("https://raw.githubusercontent.com/dariusk/corpora/master/data/geography/london_underground_stations.json");
+  json_data = json.getJSONArray("stations");
+  
+  int title = int(random(0, json_data.size()));
+  JSONObject name = json_data.getJSONObject(title);
+  println(name.getString("name"));
+  return name.getString("name");
 }
