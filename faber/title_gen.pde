@@ -6,9 +6,10 @@ int cannabis_chance = 25;
 int titan_chance = 10;
 int god_chance = 5;
 int crayola_chance = 20;
-int apple_chance = 25;
+int apple_chance = 20;
 int passage_chance = 5;
-int tube_chance = 15;
+int tube_chance = 10;
+int river_chance = 10;
 
 String generate_title()
 {
@@ -17,7 +18,6 @@ String generate_title()
   
   if(title_chance < cannabis_chance)
   {
-    println("Cannabis");
     title =  generate_cannabis_title();
   }
   else if(title_chance < cannabis_chance + titan_chance)
@@ -43,6 +43,10 @@ String generate_title()
   else if(title_chance < cannabis_chance + titan_chance + god_chance  + crayola_chance+apple_chance + tube_chance)
   {
     title = generate_tube_title();
+  }
+  else if(title_chance < cannabis_chance + titan_chance + god_chance  + crayola_chance+apple_chance + tube_chance+river_chance)
+  {
+    title = generate_river_title();
   }
   
   float subtitle_thresholds = 100 / num_subtitle_generators;
@@ -138,6 +142,15 @@ String generate_tube_title()
   
   int title = int(random(0, json_data.size()));
   JSONObject name = json_data.getJSONObject(title);
-  println(name.getString("name"));
+  return name.getString("name");
+}
+
+String generate_river_title()
+{
+  json = loadJSONObject("https://raw.githubusercontent.com/dariusk/corpora/master/data/geography/rivers.json");
+  json_data = json.getJSONArray("rivers");
+
+  int title = int(random(0, json_data.size()));
+  JSONObject name = json_data.getJSONObject(title);
   return name.getString("name");
 }
