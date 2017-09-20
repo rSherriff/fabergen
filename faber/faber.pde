@@ -123,7 +123,7 @@ void keyPressed()
     String words = "";
     for(int i = 0; i < 50; i++)
     {
-      words += generate_passage_name() + ',';
+      words += generate_wrestling_title() + ',';
     }
     String[] list = split(words, ',');
     saveStrings("titles.txt", list);
