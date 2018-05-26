@@ -82,8 +82,6 @@ void setup()
    bg_colours[44] = #fbe30a; name_colours[44]= #146ab4; title_colours[44]= #d72027;
    bg_colours[45] = #2b2537; name_colours[45]= #fef3e5; title_colours[45]= #c9e5f2;
    //bg_colours[] = #; name_colours[]= #; title_colours[]= #;
-   
-   author_setup();
 
    faber_logo = loadImage("logo.png");
    
